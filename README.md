@@ -1,6 +1,6 @@
 # DNS Server
 
-A recursive DNS forwarder implemented in Go from scratch, communicating over raw UDP sockets and parsing the DNS wire format (RFC 1035) manually — no DNS libraries used. Initially developed during my Boston College Computer Networks course, and extended to follow better practices when caching.
+A recursive DNS forwarder implemented in Go from scratch, communicating over raw UDP sockets and parsing the DNS wire format (RFC 1035) manually — no DNS libraries used. Initially developed during my Boston College Computer Networks course, and extended to fix transaction ID collision, add safety measures for concurrent connection, and clean up files from the original submission.
 
 ## How It Works
 
@@ -44,7 +44,7 @@ sudo ./dns-server <zone_file>
 
 Requires root (or `CAP_NET_BIND_SERVICE`) to bind port 53. The upstream resolver defaults to `127.0.0.53:53`.
 
-Test with `dig`:
+In another terminal window, test with `dig`:
 
 ```
 dig @localhost test1.csci3363.net A

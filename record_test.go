@@ -140,26 +140,24 @@ var aRec = record{
     DLen: 4,
 }
 
+var cNameRec = record{
+    Name: "test",
+    QType: 5,
+    Class: 1,
+    TTL: 300,
+    Data: cNameDataStr,
+    DLen: uint16(len(cNameDataStr) + 2),
+}
+
+var errRec = record{
+    Name: "test",
+    QType: 4,
+    Class: 1,
+    TTL: 300,
+    Data: cNameDataStr,
+    DLen: 0,
+}
 func TestNewAnswerRecord(t *testing.T) {
-
-
-    cNameRec := record{
-        Name: "test",
-        QType: 5,
-        Class: 1,
-        TTL: 300,
-        Data: cNameDataStr,
-        DLen: uint16(len(cNameDataStr) + 2),
-    }
-
-    errRec := record{
-        Name: "test",
-        QType: 4,
-        Class: 1,
-        TTL: 300,
-        Data: cNameDataStr,
-        DLen: 0,
-    }
 
     tests := []struct{
         name string
@@ -220,4 +218,16 @@ func TestNewRecord(t *testing.T) {
             }
         })
     }
+}
+
+func TestRecordString(t *testing.T) {
+    expected := "test, A, IN, 300, 1.2.3.4"
+
+    t.Run("Record String() Method", func(t *testing.T) {
+        res := aRec.String()
+
+        if res != expected {
+            t.Fatalf("record.String() = %v, want = %v", res, expected)
+        }
+    })
 }
